@@ -1,103 +1,333 @@
-import Image from "next/image";
-
-export default function Home() {
+import React from 'react'
+import Footer from '@/compoments/Footer'
+import Link from "next/link";
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className='w-full bg-white min-h-screen'>
+      {/* Header */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div
+        className="hero h-[500px] min-h-[300px] flex items-center justify-center bg-cover bg-center relative"
+        style={{
+          backgroundImage: "url('https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img5.jpg?v=1742')",
+        }}>
+      </div>
+      {/* Product Section */}
+      <div>
+        <h2 className='text-2xl font-semibold text-center text-black mb-6 mt-4'>SÁCH MỚI</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          {/* Card 1 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/song-con-chua-can_bia_ea1f6ab45ea3428f8c6121fb38eb8b14_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <Link href="/ProductDetail">
+                  <button className="btn btn-error">Buy Now</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/song-con-chua-can_bia_ea1f6ab45ea3428f8c6121fb38eb8b14_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <Link href="/ShoppingCart">
+                <button className="btn btn-error">Buy Now</button></Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/song-con-chua-can_bia_ea1f6ab45ea3428f8c6121fb38eb8b14_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/song-con-chua-can_bia_ea1f6ab45ea3428f8c6121fb38eb8b14_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        {/* Nút Xem Thêm */}
+        <div className="flex justify-center  mt-4">
+          <button className="btn btn-ghost text-black">Xem Thêm</button>
+        </div>
+        {/* Product Section */}
+        <div>
+          <h2 className='text-2xl font-semibold text-center text-black mb-6 mt-5'>SÁCH BÁN CHẠY</h2>
+          <div className="flex flex-wrap justify-center gap-6">
+            {/* Card 1 */}
+            <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+              <figure>
+                <img
+                  src="https://product.hstatic.net/200000343865/product/14_a84c0ad16276449fb8c805b0c8b13ab7_large.jpg"
+                  alt="Shoes" className="max-w-full h-auto" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">Shoes!</h2>
+                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-error">Buy Now</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+              <figure>
+                <img
+                  src="https://product.hstatic.net/200000343865/product/14_a84c0ad16276449fb8c805b0c8b13ab7_large.jpg"
+                  alt="Shoes" className="max-w-full h-auto" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">Shoes!</h2>
+                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-error">Buy Now</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+              <figure>
+                <img
+                  src="https://product.hstatic.net/200000343865/product/14_a84c0ad16276449fb8c805b0c8b13ab7_large.jpg"
+                  alt="Shoes" className="max-w-full h-auto" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">Shoes!</h2>
+                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-error">Buy Now</button>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+              <figure>
+                <img
+                  src="https://product.hstatic.net/200000343865/product/14_a84c0ad16276449fb8c805b0c8b13ab7_large.jpg"
+                  alt="Shoes" className="max-w-full h-auto" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">Shoes!</h2>
+                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-error">Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Nút Xem Thêm */}
+          <div className="flex justify-center  mt-4">
+            <button className="btn btn-ghost text-black">Xem Thêm</button>
+          </div>
+        </div>
+      </div>
+      {/* Banner Section */}
+      <div>
+        <div className="relative flex items-center justify-center text-white text-center px-4">
+          <img
+            src="https://theme.hstatic.net/200000343865/1001052087/14/banner_home_pro_6.jpg?v=1742"
+            alt="Banner"
+            className="rounded-full w-full max-w-6xl h-44"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 p-6">
+            <a href="/shop" className="block w-full h-full"></a>
+          </div>
+        </div>
+        <h2 className='text-2xl font-semibold text-center text-black mb-6 mt-4'>BST DORAEMON</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          {/* Card 1 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/mon-movie-story-mau_nobita-va-chuyen-tham-hiem-nam-cuc-kachi-kochi_bia_6b938ec5d12545f4a7a2c266ac0af643_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+          {/* Card 2 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/mon-movie-story-mau_nobita-va-chuyen-tham-hiem-nam-cuc-kachi-kochi_bia_6b938ec5d12545f4a7a2c266ac0af643_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/mon-movie-story-mau_nobita-va-chuyen-tham-hiem-nam-cuc-kachi-kochi_bia_6b938ec5d12545f4a7a2c266ac0af643_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="https://product.hstatic.net/200000343865/product/mon-movie-story-mau_nobita-va-chuyen-tham-hiem-nam-cuc-kachi-kochi_bia_6b938ec5d12545f4a7a2c266ac0af643_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Nút Xem Thêm */}
+        <div className="flex justify-center  mt-4">
+          <button className="btn btn-ghost text-black">Xem Thêm</button>
+        </div>
+      </div>
+      <div>
+        <div className="relative flex items-center justify-center text-white text-center px-4">
+          <img
+            src="https://theme.hstatic.net/200000343865/1001052087/14/banner_home_pro_5.jpg?v=1742"
+            alt="Banner"
+            className="rounded-full w-full max-w-6xl h-44"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
-}
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 p-6">
+            <a href="/shop" className="block w-full h-full"></a>
+          </div>
+        </div>
+        <h2 className='text-2xl font-semibold text-center text-black mb-6 mt-4'>MANGA - COMIC</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          {/* Card 1 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="//product.hstatic.net/200000343865/product/dt-conan-kaito-kid-_1_cff6e6d6dbce4546919546a19ee501cd_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+          {/* Card 2 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="//product.hstatic.net/200000343865/product/dt-conan-kaito-kid-_1_cff6e6d6dbce4546919546a19ee501cd_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="//product.hstatic.net/200000343865/product/dt-conan-kaito-kid-_1_cff6e6d6dbce4546919546a19ee501cd_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
+            <figure>
+              <img
+                src="//product.hstatic.net/200000343865/product/dt-conan-kaito-kid-_1_cff6e6d6dbce4546919546a19ee501cd_large.jpg"
+                alt="Shoes" className="max-w-full h-auto" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-error">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Nút Xem Thêm */}
+        <div className="flex justify-center  mt-4">
+          <button className="btn btn-ghost text-black">Xem Thêm</button>
+
+        </div>
+        <Footer/>
+ </div>
+  </div>
+  )
+} 
