@@ -1,73 +1,176 @@
-"use client"
+"use client";
+import { useState, useEffect } from "react";
 import Footer from "@/compoments/Footer";
-import { useState } from "react";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
-
+import { FaTrash } from "react-icons/fa";
+import Link from "next/link";
 
 const ShoppingCart = () => {
-  const [quantity, setQuantity] = useState(1);
+  const [cartItems, setCartItems] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedItems, setSelectedItems] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
 
-  const increaseQuantity = () => setQuantity(quantity + 1);
-  const decreaseQuantity = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
-  
-  const handleGoToCart = () => {
+  useEffect(() => {
+    const initialCart = [
+      {
+        id: 1,
+        name: "Combo 4 cuốn sách MBA thực chiến...",
+        price: 564000,
+        image:
+          "https://storage.googleapis.com/a1aa/image/9taXadx_xKIpBruCKs6ZOeV9pES_cDLcmC0O8ykLZRA.jpg",
+      },
+      {
+        id: 2,
+        name: "Sách dạy thể dục",
+        price: 320000,
+        image:
+          "https://i.vgt.vn/2023/7/26/hotgirl-tran-ha-linh-bi-boc-tran-qua-khu-lieu-co-an-o-nhu-thoi-nguyen-thuy-them-1-clip-gay-bao-ba6-6951964.png",
+      },
+    ];
+    setCartItems(initialCart);
+    setQuantities(
+      initialCart.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {})
+    );
+    setSelectedItems(
+      initialCart.reduce((acc, item) => ({ ...acc, [item.id]: false }), {})
+    );
+  }, []);
+
+  useEffect(() => {
+    const newTotal = cartItems.reduce(
+      (acc, item) =>
+        selectedItems[item.id] ? acc + item.price * (quantities[item.id] ?? 1) : acc,
+      0
+    );
+    setTotalPrice(newTotal);
+  }, [cartItems, quantities, selectedItems]);
+
+  const increaseQuantity = (id) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: (prev[id] ?? 1) + 1,
+    }));
+  };
+
+  const decreaseQuantity = (id) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: Math.max((prev[id] ?? 1) - 1, 1),
+    }));
+  };
+
+  const handleRemoveItem = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    setQuantities((prev) => {
+      const { [id]: _, ...rest } = prev;
+      return rest;
+    });
+    setSelectedItems((prev) => {
+      const { [id]: _, ...rest } = prev;
+      return rest;
+    });
+
+    // Kiểm tra nếu tất cả sản phẩm còn lại vẫn được chọn
+    setSelectAll(Object.values(selectedItems).every((value) => value));
+  };
+
+  const handleSelectItem = (id) => {
+    setSelectedItems((prev) => {
+      const newSelected = { ...prev, [id]: !prev[id] };
+      setSelectAll(Object.values(newSelected).every((value) => value));
+      return newSelected;
+    });
+  };
+
+  const handleSelectAll = () => {
+    const newSelectAll = !selectAll;
+    setSelectAll(newSelectAll);
+    setSelectedItems(
+      cartItems.reduce((acc, item) => ({ ...acc, [item.id]: newSelectAll }), {})
+    );
   };
 
   return (
     <div className="font-roboto bg-gray-100 min-h-screen">
-   
-
       <main className="container mx-auto p-4 flex flex-col md:flex-row gap-4">
-        <div className="bg-white p-6 rounded shadow w-full md:w-2/3">
+        <div className="bg-white p-6 rounded-lg shadow w-full md:w-2/3">
           <h2 className="text-red-500 text-lg font-bold mb-4">Giỏ hàng của bạn</h2>
-          <p>Bạn đang có <strong>1 sản phẩm</strong> trong giỏ hàng</p>
-          <div className="flex items-center border-b py-4">
-            <img
-              src="https://storage.googleapis.com/a1aa/image/9taXadx_xKIpBruCKs6ZOeV9pES_cDLcmC0O8ykLZRA.jpg"
-              alt="Book combo"
-              className="w-24 h-auto border rounded"
-            />
-            <div className="flex-1 ml-4">
-              <h3 className="text-md font-bold">Combo 4 cuốn sách MBA thực chiến...</h3>
-              <p className="text-red-500 font-bold">564,000₫ <span className="line-through text-gray-500">752,000₫</span></p>
-            </div>
-            <div className="flex items-center">
-              <button onClick={decreaseQuantity} className="bg-red-500 text-white px-2 rounded">-</button>
-              <input type="text" value={quantity} readOnly className="w-12 text-center border mx-2 rounded" />
-              <button onClick={increaseQuantity} className="bg-red-500 text-white px-2 rounded">+</button>
-            </div>
-          </div>
-
-          {/* 🔥 Nút "Thêm vào giỏ hàng" với điều hướng */}
-          <button onClick={handleGoToCart} className="w-full bg-red-500 text-white py-2 rounded mb-2">
-            Thêm vào giỏ hàng
-          </button>
-
-          <div className="mt-4">
-            <h3 className="text-lg font-bold">Ghi chú đơn hàng</h3>
-            <textarea className="w-full p-2 border rounded" rows={4}></textarea>
-          </div>
-          <div className="mt-2 flex items-center">
-            <input type="checkbox" id="invoice" className="mr-2" />
-            <label htmlFor="invoice">Xuất hóa đơn cho đơn hàng</label>
-          </div>
+          <label className="flex items-center mb-4">
+            <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
+            <span className="ml-2 text-black">Chọn tất cả</span>
+          </label>
+          {cartItems.length > 0 ? (
+            cartItems.map((item) => (
+              <div key={item.id} className="flex items-center border-b py-4">
+                <input
+                  type="checkbox"
+                  checked={selectedItems[item.id] || false}
+                  onChange={() => handleSelectItem(item.id)}
+                />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-24 h-auto border rounded ml-4"
+                />
+                <div className="flex-1 ml-4">
+                  <h3 className="text-md font-bold text-black">{item.name}</h3>
+                  <p className="text-red-500 font-bold">
+                    {(item.price * quantities[item.id]).toLocaleString("vi-VN")}₫
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => decreaseQuantity(item.id)}
+                    className="bg-red-500 text-white px-2 rounded"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    value={quantities[item.id]}
+                    readOnly
+                    className="bg-white text-black w-12 text-center border mx-2 rounded"
+                  />
+                  <button
+                    onClick={() => increaseQuantity(item.id)}
+                    className="bg-red-500 text-white px-2 rounded"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => handleRemoveItem(item.id)}
+                    className="ml-3 text-red-600 hover:text-red-800"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 text-center">Giỏ hàng trống</p>
+          )}
         </div>
 
-        <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
-          <h3 className="text-red-500 text-lg font-bold">Thông tin đơn hàng</h3>
-          <div className="mt-4">
-            <input type="radio" id="delivery-now" name="delivery-time" className="mr-2" />
-            <label htmlFor="delivery-now">Giao khi có hàng</label>
-            <br />
-            <input type="radio" id="choose-time" name="delivery-time" className="mr-2" />
-            <label htmlFor="choose-time">Chọn thời gian</label>
+        <div className="items-center bg-gray-100">
+          <div className="bg-white rounded-lg shadow-md p-6 w-80 text-black">
+            <div className="flex justify-between mb-2">
+              <span>Thành tiền</span>
+              {totalPrice.toLocaleString("vi-VN")}₫
+            </div>
+            <div className="flex justify-between font-bold text-red-500 mb-4">
+              <span>Tổng Số Tiền (gồm VAT)</span>
+              {totalPrice.toLocaleString("vi-VN")}₫
+            </div>
+            <Link href="/Payment">
+              <button className="w-full bg-red-500 text-white text-center py-2 rounded-md font-bold hover:bg-red-600">
+                THANH TOÁN
+              </button>
+            </Link>
           </div>
-          <div className="text-2xl text-red-500 font-bold my-4">564,000₫</div>
-          <a href="#" className="bg-red-500 text-white text-center block p-4 rounded shadow hover:bg-red-700">THANH TOÁN</a>
         </div>
       </main>
-
-    <Footer/>
+      <Footer />
     </div>
   );
 };
