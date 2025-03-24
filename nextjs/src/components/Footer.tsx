@@ -1,7 +1,7 @@
 import React from 'react'
 const Footer = () => {
   return (
-    <footer className="footer bg-rose-500 text-white p-10 mt-20 rounded-xl ">
+    <footer className="footer bg-rose-500 text-white p-10 rounded-xl ">
       <nav>
         <h6 className="footer-title text-black">DỊCH VỤ</h6>
         <a className="link link-hover">Branding</a>

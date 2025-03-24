@@ -62,7 +62,6 @@ const ProductPage: React.FC = () => {
         </div>
       </main>
     </div>
-    <Footer/>
     </div>
   );
 };
