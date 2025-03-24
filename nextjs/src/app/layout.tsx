@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/compoments/Header";
-import LoginModal from "@/compoments/LoginModal";
+import Header from "@/components/Header";
+import LoginModal from "@/components/LoginModal";
+import Footer from "@/components/Footer";
 
 
 const geistSans = Geist({
@@ -24,10 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
         <Header handleShowModal={() => setShowModal(true)} />
         {children}
         {showModal && <LoginModal handleShowModal={() => setShowModal(false)} />}
+        <Footer />
+
       </body>
+
     </html>
   );
 }

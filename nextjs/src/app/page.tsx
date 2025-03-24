@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from '@/compoments/Footer'
+import Footer from '@/components/Footer'
 import Link from "next/link";
 export default function HomePage() {
   return (
@@ -85,7 +85,8 @@ export default function HomePage() {
         </div>
         {/* Nút Xem Thêm */}
         <div className="flex justify-center  mt-4">
-          <button className="btn btn-ghost text-black">Xem Thêm</button>
+          <Link href="/ProductList">
+          <button className="btn btn-ghost text-black">Xem Thêm</button></Link>
         </div>
         {/* Product Section */}
         <div>
@@ -326,7 +327,7 @@ export default function HomePage() {
           <button className="btn btn-ghost text-black">Xem Thêm</button>
 
         </div>
-        <Footer/>
+      
  </div>
   </div>
   )

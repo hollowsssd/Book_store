@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Footer from '@/compoments/Footer'
+import Footer from '@/components/Footer'
 import { faStar, faStarHalfAlt, faMapMarkerAlt, faTruck, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const ProductPage = () => {

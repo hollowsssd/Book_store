@@ -1,18 +1,26 @@
 "use client";
 import { useState, useEffect } from "react";
-import Footer from "@/compoments/Footer";
+import Footer from "@/components/Footer";
 import { FaTrash } from "react-icons/fa";
 import Link from "next/link";
 
+// Định nghĩa kiểu dữ liệu của sản phẩm
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
+
 const ShoppingCart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [quantities, setQuantities] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [selectedItems, setSelectedItems] = useState({});
-  const [selectAll, setSelectAll] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [selectedItems, setSelectedItems] = useState<{ [key: number]: boolean }>({});
+  const [selectAll, setSelectAll] = useState<boolean>(false);
 
   useEffect(() => {
-    const initialCart = [
+    const initialCart: CartItem[] = [
       {
         id: 1,
         name: "Combo 4 cuốn sách MBA thực chiến...",
@@ -46,21 +54,21 @@ const ShoppingCart = () => {
     setTotalPrice(newTotal);
   }, [cartItems, quantities, selectedItems]);
 
-  const increaseQuantity = (id) => {
+  const increaseQuantity = (id: number) => {
     setQuantities((prev) => ({
       ...prev,
       [id]: (prev[id] ?? 1) + 1,
     }));
   };
 
-  const decreaseQuantity = (id) => {
+  const decreaseQuantity = (id: number) => {
     setQuantities((prev) => ({
       ...prev,
       [id]: Math.max((prev[id] ?? 1) - 1, 1),
     }));
   };
 
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
     setQuantities((prev) => {
       const { [id]: _, ...rest } = prev;
@@ -71,11 +79,10 @@ const ShoppingCart = () => {
       return rest;
     });
 
-    // Kiểm tra nếu tất cả sản phẩm còn lại vẫn được chọn
     setSelectAll(Object.values(selectedItems).every((value) => value));
   };
 
-  const handleSelectItem = (id) => {
+  const handleSelectItem = (id: number) => {
     setSelectedItems((prev) => {
       const newSelected = { ...prev, [id]: !prev[id] };
       setSelectAll(Object.values(newSelected).every((value) => value));
@@ -92,8 +99,8 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div className="font-roboto bg-gray-100 min-h-screen">
-      <main className="container mx-auto p-4 flex flex-col md:flex-row gap-4">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
+      <main className="container mx-auto p-4 flex flex-col md:flex-row gap-4 flex-1">
         <div className="bg-white p-6 rounded-lg shadow w-full md:w-2/3">
           <h2 className="text-red-500 text-lg font-bold mb-4">Giỏ hàng của bạn</h2>
           <label className="flex items-center mb-4">
@@ -116,7 +123,7 @@ const ShoppingCart = () => {
                 <div className="flex-1 ml-4">
                   <h3 className="text-md font-bold text-black">{item.name}</h3>
                   <p className="text-red-500 font-bold">
-                    {(item.price * quantities[item.id]).toLocaleString("vi-VN")}₫
+                    {(item.price * (quantities[item.id] ?? 1)).toLocaleString("vi-VN")}₫
                   </p>
                 </div>
                 <div className="flex items-center">
