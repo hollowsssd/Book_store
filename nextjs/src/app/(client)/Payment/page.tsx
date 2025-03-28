@@ -1,5 +1,4 @@
 "use client";
-import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 
 type LocationType = {

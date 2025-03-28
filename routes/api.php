@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BooksController;
 use App\Models\Books;
 
+//php artisan install:api
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -15,18 +17,18 @@ Route::get('/user', function (Request $request) {
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::post('AddUsers', [UserController::class, 'store']);
-Route::put('usersUpdate/{id}', [UserController::class, 'update']);
+Route::post('usersUpdate/{id}', [UserController::class, 'update']);
 Route::get('users/search',[UserController::class, 'search']);
 Route::delete('usersDelete/{id}',[UserController::class,'destroy']);
 
 
 //api books
-Route::get('books',[BooksController::class,'index'])->middleware('auth:sanctum');
+Route::get('books',[BooksController::class,'index']);
 Route::get('books/{isbn}', [BooksController::class, 'show']);
 Route::post('addBook', [BooksController::class, 'store']);
-Route::put('booksUpdate/{isbn}', [BooksController::class, 'update']);
+Route::post('booksUpdate/{isbn}', [BooksController::class, 'update']);
 Route::get('books/search',[BooksController::class, 'search']);
-Route::delete('booksDelete/{id}',[BooksController::class,'destroy']);
+Route::delete('booksDelete/{isbn}',[BooksController::class,'destroy']);
 
 
 //api auth

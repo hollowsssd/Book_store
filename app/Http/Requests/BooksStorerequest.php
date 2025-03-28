@@ -22,7 +22,7 @@ class BooksStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'isbn'=>'required|string|max:255',
+            'isbn'=>'nullable|string|max:255',
             'name' => 'required|string|max:358',
             'author' => 'required|string',
             'description' => 'required|string',

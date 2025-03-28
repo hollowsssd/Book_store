@@ -25,6 +25,9 @@ class UserStoreRequest extends FormRequest
                 'name' => 'required|string|max:358',
                 'email' => 'required|string',
                 'password' => 'required|string',
+                'phone' => 'nullable|string',
+                'address' => 'nullable|string',
+                
             ];
        
     }

@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from '@/components/Footer'
 import Link from "next/link";
 export default function HomePage() {
   return (
@@ -46,7 +45,7 @@ export default function HomePage() {
               <p>If a dog chews shoes whose shoes does he choose?</p>
               <div className="card-actions justify-end">
                 <Link href="/ShoppingCart">
-                <button className="btn btn-error">Buy Now</button></Link>
+                  <button className="btn btn-error">Buy Now</button></Link>
               </div>
             </div>
           </div>
@@ -86,7 +85,7 @@ export default function HomePage() {
         {/* Nút Xem Thêm */}
         <div className="flex justify-center  mt-4">
           <Link href="/ProductList">
-          <button className="btn btn-ghost text-black">Xem Thêm</button></Link>
+            <button className="btn btn-ghost text-black">Xem Thêm</button></Link>
         </div>
         {/* Product Section */}
         <div>
@@ -327,8 +326,8 @@ export default function HomePage() {
           <button className="btn btn-ghost text-black">Xem Thêm</button>
 
         </div>
-      
- </div>
-  </div>
+
+      </div>
+    </div>
   )
 } 

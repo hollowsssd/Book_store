@@ -9,6 +9,7 @@ use App\Models\Books;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class BooksController extends Controller
 {
@@ -31,7 +32,7 @@ class BooksController extends Controller
     }
     public function show($isbn)
     {
-        $book = books::where('isbn',$isbn)->first();
+        $book = Books::where('isbn', $isbn)->first();
         if (!$book) {
             return response()->json([
                 'message' => "Book not found."
@@ -46,7 +47,7 @@ class BooksController extends Controller
         try {
             $imageName = Str::random(32) . "." . $request->image->getClientOriginalExtension();
             Storage::disk('public')->put($imageName, file_get_contents($request->image));
-            books::create([
+            Books::create([
                 'isbn' => $request->isbn,
                 'name' => $request->name,
                 'author' => $request->author,
@@ -68,14 +69,19 @@ class BooksController extends Controller
     }
     public function update(BooksStoreRequest $request, $isbn)
     {
-        try {
-            $book = books::find($isbn);
-            if (!$book) {
-                return response()->json([
-                    'Message' => "book is not found"
-                ], 200);
-            }
 
+        try {
+
+            // Log::info('ISBN nhận được:', ['isbn' => $isbn]);
+            $book = Books::where('isbn', $isbn)->first();
+            if ($book==null) {
+                return response()->json([
+                    'Message' => "book is not found",
+                    'isbn' => $isbn,
+                    'found' => $book
+                ], 404);
+            }
+            
             $book->isbn = $request->isbn;
             $book->name = $request->name;
             $book->author = $request->author;
@@ -86,6 +92,7 @@ class BooksController extends Controller
             $book->status = $request->status;
 
             if ($request->hasFile('image')) {
+
                 $storage = Storage::disk(('public'));
 
                 if (!empty($book->image) && $storage->exists($book->image)) {
@@ -103,29 +110,30 @@ class BooksController extends Controller
 
             return response()->json([
                 'message' => "book is updated"
-            ], 500);
-        } catch (\Exception) {
+            ], 200);
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => "something went really wrong"
+                'message' => "something went really wrong".$e->getMessage()
             ], 500);
         }
     }
+    
     public function destroy($isbn)
     {
         try {
-            $book = books::find($isbn);
+            $book = Books::where('isbn', $isbn)->first();
             if (!$book) {
                 return response()->json([
                     'message' => "book is not found"
                 ], 200);
             }
 
-            $bookInOrderDetail = DB::table('order_details')->where('book_id', $isbn)->exists();
-            if ($bookInOrderDetail) {
-                return response()->json([
-                    'message' => "book is in order detail. you can't delete this book. pls update status to hidden"
-                ], 200);
-            }
+            // $bookInOrderDetail = DB::table('order_detail')->where('book_id', $isbn)->exists();
+            // if ($bookInOrderDetail) {
+            //     return response()->json([
+            //         'message' => "book is in order detail. you can't delete this book. pls update status to hidden"
+            //     ], 200);
+            // }
 
             $storage = Storage::disk('public');
             if (!empty($book->image) && $storage->exists($book->image)) {
@@ -135,9 +143,9 @@ class BooksController extends Controller
             return response()->json([
                 'message' => "book is deleted"
             ], 200);
-        } catch (\Exception) {
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => "something went really wrong"
+                'message' => "something went really wrong".$e->getMessage()
             ], 500);
         }
     }
