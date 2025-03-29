@@ -27,7 +27,7 @@ class AuthController extends Controller
                 'success' => true,
                 'token' => $token->plainTextToken,
                 'message' => "login success",
-            ], 401);
+            ], 200);
         }
 
         return response()->json([
@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => "true",
-            'message' => $request->user(),
+            'user' => $request->user(),
         ]);
     }
 

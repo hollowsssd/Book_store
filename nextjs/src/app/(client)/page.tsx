@@ -1,6 +1,11 @@
 import React from 'react'
 import Link from "next/link";
+
+
+
 export default function HomePage() {
+
+
   return (
     <div className='w-full bg-white min-h-screen'>
       {/* Header */}
@@ -8,7 +13,7 @@ export default function HomePage() {
       <div
         className="hero h-[500px] min-h-[300px] flex items-center justify-center bg-cover bg-center relative"
         style={{
-          backgroundImage: "url('https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img5.jpg?v=1742')",
+          //  backgroundImage: "url('https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img5.jpg?v=1742')",
         }}>
       </div>
       {/* Product Section */}

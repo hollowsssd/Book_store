@@ -36,7 +36,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout']);
 
 Route::post('/auth/register', [AuthController::class, 'register']);
-Route::middleware('auth:sanctum')->get('profile', [AuthController::class, 'profile']);
+Route::middleware('auth:sanctum')->get('/auth/profile', [AuthController::class, 'profile']);
 
 
 
