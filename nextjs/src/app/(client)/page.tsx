@@ -31,7 +31,7 @@ export default function HomePage() {
               <h2 className="card-title">Những anh hùng trẻ tuổi - Bế Văn Đàn</h2>
               <p>Văn học Việt Nam</p>
               <div className="card-actions justify-end">
-                <Link href="/ProductDetail">
+                <Link href="/ProductDetail/1234">
                   <button className="btn btn-error">Xem Ngay</button>
                 </Link>
               </div>
@@ -49,7 +49,7 @@ export default function HomePage() {
               <h2 className="card-title">Những anh hùng trẻ tuổi - Vừ A Dính!</h2>
               <p>Văn học Việt Nam</p>
               <div className="card-actions justify-end">
-                <Link href="/ShoppingCart">
+                <Link href="/">
                   <button className="btn btn-error">Xem Ngay</button></Link>
               </div>
             </div>
