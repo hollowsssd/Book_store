@@ -1,13 +1,12 @@
 "use client";
-import Footer from "@/components/Footer";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ProductPage() {
-
 
   const [BookData, setBookData] = useState<{
     isbn: string;
@@ -21,17 +20,17 @@ export default function ProductPage() {
     category: string;
     publisher: string;
   }[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchQuery = useSearchParams();
+  const name= searchQuery.get("name");
 
   const [isLoading, setIsLoading] = useState(true); // Trạng thái tải dữ liệu
-  useEffect(() => {
-    fetchData();
-  }, [searchQuery]);
+
+
   const fetchData = async (url = "http://127.0.0.1:8000/api/books") => {
     setIsLoading(true);
     try {
       const result = await axios.get(url, {
-        params: { name: searchQuery }, // Truyền query tìm kiếm nếu có
+        params: { name: name }, // Truyền query tìm kiếm nếu có
       });
       console.log(result); // Xem dữ liệu trả về
       // console.log(result.data.Result.data || []);
@@ -45,6 +44,9 @@ export default function ProductPage() {
       setIsLoading(false); // Dữ liệu đã tải xong
     }
   };
+    useEffect(() => {
+    fetchData();
+  }, [name]);
 
 
 
@@ -89,7 +91,7 @@ export default function ProductPage() {
             ) : (
               <>
                 {BookData.map((book, index) => (
-                  <div>
+                  <div key={book.isbn}>
                     <div className="card card-compact bg-white text-black w-full sm:w-64 md:w-48 lg:w-64 shadow-xl">
                       <figure>
                         <img

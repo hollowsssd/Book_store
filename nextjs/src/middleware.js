@@ -4,6 +4,7 @@ import { getProfile } from './utils/utils';
 export const middleware = async (request) => {
     const pathname = request.nextUrl.pathname;
     const token = request.cookies.get("token")?.value;
+    // const hasLoginModal = url.searchParams.get("loginModal") === "true";
     // console.log(token);
 
     // Kiểm tra nếu không có token và người dùng không đang ở trang login

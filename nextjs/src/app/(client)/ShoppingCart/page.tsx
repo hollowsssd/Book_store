@@ -23,17 +23,17 @@ const ShoppingCart = () => {
     const initialCart: CartItem[] = [
       {
         id: 1,
-        name: "Combo 4 cuốn sách MBA thực chiến...",
-        price: 564000,
+        name: "One Piece ",
+        price: 56400,
         image:
-          "https://storage.googleapis.com/a1aa/image/9taXadx_xKIpBruCKs6ZOeV9pES_cDLcmC0O8ykLZRA.jpg",
+          "https://product.hstatic.net/200000343865/product/one-piece-_bia_tap-1_c4d0ea3d590d4b858270c5ca3d565e4c_master.jpg",
       },
       {
         id: 2,
-        name: "Sách dạy thể dục",
-        price: 320000,
+        name: "Dragon Ball",
+        price: 32000,
         image:
-          "https://i.vgt.vn/2023/7/26/hotgirl-tran-ha-linh-bi-boc-tran-qua-khu-lieu-co-an-o-nhu-thoi-nguyen-thuy-them-1-clip-gay-bao-ba6-6951964.png",
+          "https://product.hstatic.net/200000343865/product/dragon-ball_tap-1_047b116d3f0e4637a6f97bef34bb03f0_master.jpg",
       },
     ];
     setCartItems(initialCart);

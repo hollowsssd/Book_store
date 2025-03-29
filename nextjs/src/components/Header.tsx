@@ -13,6 +13,20 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
   // Đóng menu khi chọn một mục
   const closeDropdown = () => setOpenDropdown(null);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      console.log("Đã nhấn Enter:", event.currentTarget.value);
+      handleSearch(event.currentTarget.value); // Truyền string
+    }
+  };
+
+  // Sửa kiểu của handleSearch thành string
+  const handleSearch = (query: string) => {
+    window.location.href = `/ProductList?name=${query}`;
+  };
+  
+
+
   return (
     <header className="bg-rose-500 px-6 py-2 flex items-center">
       {/* Bên trái: Menu */}
@@ -40,7 +54,7 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
             <ul className="absolute left-0 mt-2 bg-white text-black rounded-box z-10 w-64 p-4 shadow">
               <li onClick={closeDropdown}><a>BÀI VIẾT MỚI</a></li>
               <li onClick={closeDropdown}><a>SỰ KIỆN</a></li>
-      
+
             </ul>
           )}
         </div>
@@ -74,11 +88,18 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
           type="text"
           placeholder="Search"
           className="bg-white text-black input input-bordered w-24 md:w-auto"
+          onKeyDown={handleKeyDown}
         />
         <Link href="/ShoppingCart">
           <button className="btn btn-ghost btn-circle">🛒</button>
         </Link>
-        <button onClick={handleShowModal} className="btn btn-ghost">👤</button>
+      </div>
+      <div className="dropdown dropdown-end ">
+        <div tabIndex={0} role="button" className="btn btn-ghost">👤</div>
+        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
+          <li><a onClick={handleShowModal}>Login</a></li>
+          <li><a>Logout</a></li>
+        </ul>
       </div>
     </header>
   );
