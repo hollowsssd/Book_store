@@ -4,9 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CreateUser() {
-    const router=useRouter();
+    const router = useRouter();
 
     const [UserData, SetUserData] = useState({
         name: "",
@@ -24,6 +26,7 @@ export default function CreateUser() {
     };
 
 
+
     const onSubmitChange = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -33,7 +36,7 @@ export default function CreateUser() {
             formData.append("address", UserData.address);
             formData.append("phone", UserData.phone);
             formData.append("password", UserData.password);
-            formData.append("is_admin", UserData.is_admin);
+            formData.append("is_admin", UserData.is_admin?"1":"0");
 
 
             console.log("Data:", Array.from(formData.entries()));
@@ -42,10 +45,15 @@ export default function CreateUser() {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            //   console.log("success",res);
-            router.push("/list/users");
+              console.log("success",res);
+            toast.success("User created!", { position: "top-right" });
+            setTimeout(() => {
+                router.push("/list/users");
+            }, 1500);
+
         } catch (error) {
             console.log("something with wrong", error);
+            toast.error("Email already exists! Pls change", { position: "top-right" });
 
         }
     }
@@ -137,6 +145,7 @@ export default function CreateUser() {
                         Create
                     </button>
                 </div>
+                <ToastContainer />
             </form>
         </div>
     );

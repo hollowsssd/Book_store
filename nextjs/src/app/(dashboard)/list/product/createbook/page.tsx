@@ -1,10 +1,14 @@
 "use client";
 
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function CreateBook() {
+  const router = useRouter();
 
   const [book, setBook] = useState({
     isbn: "",
@@ -62,6 +66,11 @@ export default function CreateBook() {
       });
 
       console.log(res);
+      toast.success("book created!", { position: "top-right" });
+
+      setTimeout(() => {
+        router.push("/list/product");
+      }, 2000);
     } catch (error) {
       console.log("something with wrong");
 
@@ -182,6 +191,7 @@ export default function CreateBook() {
             className="btn btn-success mt-4 w-full">Create</button>
         </div>
       </div>
+      <ToastContainer />
     </form>
   );
 };

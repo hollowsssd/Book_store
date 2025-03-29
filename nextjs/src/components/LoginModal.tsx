@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { on } from "events";
 
 
 const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
@@ -13,30 +14,27 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
     email: "",
     password: ""
   });
-  // const Router = useRouter();
-  // const [router, setRouter] = useState<any>(null);
-
-  // useEffect(() => {
-  //   setRouter(require("next/navigation").useRouter());
-  // }, []);
+  const Router = useRouter();
 
   const changeUserFieldHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserField({
       ...userField,
       [e.target.name]: e.target.value
-    }); 
+    });
   };
 
   const onSubmitChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(userField); 
+      const formData = new FormData();
+      formData.append("email", userField.email);
+      formData.append("password", userField.password);
 
-      const response = await axios.post("http://127.0.0.1:8000/api/auth/login",userField);
-      console.log(response);
+      const response = await axios.post("http://127.0.0.1:8000/api/auth/login", formData);
+      // console.log(response);
 
-      console.log(response.data.token);
-      const {token}= response.data.token;
+      // console.log(response.data.token);
+      const { token } = response.data.token;
 
       const cookies = new Cookies();
       cookies.set("token", response.data.token, {
@@ -50,27 +48,49 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
           Authorization: `Bearer ${response.data.token}`,
         },
       })
-      console.log(username);
-      console.log(username.data.user);
+      // console.log(username);
+      // console.log(username.data.user);
       const user = username.data.user;
       // console.log(user.name); 
       if (user) {
         localStorage.setItem('name', user.name);
         localStorage.setItem('email', user.email);
-        localStorage.setItem('is_admin', user.is_admin);
-      } 
+      }
 
+      toast.success("Đăng nhập thành công", { position: "top-right" });
+      // setTimeout(()=>{
+      //   e.preventDefault();
+      // }, 1500);
 
-
-      window.location.href = '/';
-      
-  
 
     } catch (err) {
       console.log("Something Wrong");
+      toast.error("Email hoặc mật khẩu không đúng vui lòng nhập lại", { position: "top-right" });
 
     }
   };
+
+  const onSubmitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log("Data:", userField);
+      const formData = new FormData();
+      formData.append("name", userField.name);
+      formData.append("email", userField.email);
+      formData.append("password", userField.password);
+      console.log("Data:", Array.from(formData.entries()));
+      const res = await axios.post(`http://127.0.0.1:8000/api/auth/register`, formData);
+      setIsLogin(true);
+      toast.success("Đăng ký tài khoản thành công", { position: "top-right" });
+
+
+    } catch (error) {
+      console.log("Something Wrong");
+      toast.error("Email đã tồn tại", { position: "top-right" });
+
+    }
+
+  }
 
 
 
@@ -101,8 +121,8 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
 
         {/* Form Đăng nhập */}
         {isLogin ? (
-          <form className="mt-6" 
-          onSubmit={onSubmitChange}
+          <form className="mt-6"
+            onSubmit={onSubmitChange}
           >
             <input
               name="email"
@@ -129,12 +149,14 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
           </form>
         ) : (
           // Form Đăng ký
-          <form className="mt-6">
+          <form className="mt-6" onSubmit={onSubmitRegister}>
             <input
               name="name"
               type="text"
               placeholder="Tên của bạn"
               className="bg-white w-full mb-3 p-3 border rounded-lg focus:ring-2 focus:ring-black"
+              onChange={changeUserFieldHandler}
+
               required
             />
             <input
@@ -142,6 +164,7 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
               type="email"
               placeholder="Email"
               className=" bg-white w-full mb-3 p-3 border rounded-lg focus:ring-2 focus:ring-black"
+              onChange={changeUserFieldHandler}
               required
             />
             <input
@@ -149,6 +172,7 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
               type="password"
               placeholder="Mật khẩu"
               className="bg-white w-full mb-3 p-3 border rounded-lg focus:ring-2 focus:ring-black"
+              onChange={changeUserFieldHandler}
               required
             />
             <button
@@ -171,6 +195,7 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
           </span>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 };

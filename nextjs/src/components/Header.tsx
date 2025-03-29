@@ -1,10 +1,14 @@
 "use client";
 import React, { useState } from 'react';
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-
+  const router = useRouter();
+  const cookies = new Cookies();
   // Hàm toggle mở/đóng menu
   const toggleDropdown = (index: number) => {
     setOpenDropdown(openDropdown === index ? null : index);
@@ -24,7 +28,35 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
   const handleSearch = (query: string) => {
     window.location.href = `/ProductList?name=${query}`;
   };
-  
+
+
+  const Logout = async () => {
+    const token = cookies.get("token");
+    if (!token) {
+      router.push("/");
+      return;
+    }
+    try {
+      await axios.post(
+        "http://127.0.0.1:8000/api/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      cookies.remove("token");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+
+      router.push("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      router.push("/");
+    }
+  };
+
 
 
   return (
@@ -98,7 +130,7 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
         <div tabIndex={0} role="button" className="btn btn-ghost">👤</div>
         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
           <li><a onClick={handleShowModal}>Login</a></li>
-          <li><a>Logout</a></li>
+          <li><a onClick={Logout}>Logout</a></li>
         </ul>
       </div>
     </header>

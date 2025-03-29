@@ -57,6 +57,11 @@ export default function AllUser() {
       setIsLoading(false); // Dữ liệu đã tải xong
     }
   };
+
+
+
+
+
   const handlePreviousPage = () => {
     if (pagination.prev_page_url) fetchData(pagination.prev_page_url);
     window.scrollTo(0, 0);
@@ -65,10 +70,6 @@ export default function AllUser() {
     if (pagination.next_page_url) fetchData(pagination.next_page_url);
     window.scrollTo(0, 0);
   };
-
-
-
-
 
 
   return (

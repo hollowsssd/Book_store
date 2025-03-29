@@ -4,27 +4,23 @@ import { getProfile } from './utils/utils';
 export const middleware = async (request) => {
     const pathname = request.nextUrl.pathname;
     const token = request.cookies.get("token")?.value;
-    // const hasLoginModal = url.searchParams.get("loginModal") === "true";
     // console.log(token);
 
     // Kiểm tra nếu không có token và người dùng không đang ở trang login
-    // if (!token && pathname !== "/login") {
-    //     return NextResponse.redirect(new URL("/login", request.url));
-    // }
+    if (!token && pathname.startsWith("/admin") || pathname.startsWith("/list")) {
+        return NextResponse.redirect(new URL("/", request.url));
+    }
 
     // Nếu có token, xác thực token
-    if (pathname==="/login") {
+    if (pathname.startsWith("/admin") || pathname.startsWith("/list")) {
         if (token) {
             const { success, user } = await getProfile(token);
             // console.log("Profile fetched:", { success, user });
             // Nếu token không hợp lệ, chuyển hướng về trang login
-            if (!success) {
+            if (!success||!user || user.is_admin !=1) {
                 return NextResponse.redirect(new URL("/", request.url));
             }
-            else if (success) {
-                return NextResponse.redirect(new URL("/", request.url));
-
-            }
+            
         }
     }
 

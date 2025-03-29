@@ -1,10 +1,14 @@
 "use client"
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { set } from "zod";
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function UsersDetail() {
+  const router=useRouter();
   const { id } = useParams();
 
   useEffect(() => {
@@ -13,6 +17,8 @@ export default function UsersDetail() {
     }
 
   }, [id]);
+ 
+
 
   const [UserData, SetUserData] = useState({
     name: "",
@@ -85,6 +91,12 @@ export default function UsersDetail() {
       // alert("Update successfully");
       console.log("sss", res);
 
+      toast.success("user updated!", { position: "top-right" });
+
+      setTimeout(() => {
+      router.push("/list/users");
+    }, 1500);
+
     } catch (error) {
       console.log("something went wrong", error);
     }
@@ -97,6 +109,12 @@ export default function UsersDetail() {
 
     try {
       await axios.delete(`http://127.0.0.1:8000/api/usersDelete/${id}`);
+      toast.success("user deleted!", { position: "top-right" });
+
+      setTimeout(() => {
+      router.push("/list/users");
+    }, 1500);
+
     } catch (err) {
       console.error("Error deleting user:", err);
     }
@@ -202,6 +220,8 @@ export default function UsersDetail() {
             Delete
           </button>
         </div>
+        <ToastContainer />
+
       </form>
     </div>
   );

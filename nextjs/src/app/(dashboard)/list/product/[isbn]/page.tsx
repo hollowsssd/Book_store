@@ -1,13 +1,16 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function BookDetail() {
   const { isbn } = useParams();
+  const router = useRouter();
 
   const [book, setBook] = useState({
     isbn: "",
@@ -77,7 +80,7 @@ export default function BookDetail() {
         formData.append("image", book.image);
       }
 
-      
+
       console.log("Data:", Array.from(formData.entries()));
       // console.log("formData: ", formData);
       // console.log("isbn: ", isbn);
@@ -87,9 +90,17 @@ export default function BookDetail() {
       });
       // alert("Update successfully");
       console.log(res);
+      toast.success("book updated!", { position: "top-right" });
+
+      setTimeout(() => {
+        router.push("/list/product");
+      }, 2000);
 
     } catch (error) {
       console.log("something went wrong");
+      toast.success("ISBN already exists! pls change", { position: "top-right" });
+
+
     }
 
   }
@@ -232,6 +243,7 @@ export default function BookDetail() {
 
         </div>
       </div>
+      <ToastContainer />
     </form>
   );
 };

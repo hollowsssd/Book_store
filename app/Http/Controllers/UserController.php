@@ -37,6 +37,7 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
         try {
+            
             User::create([
                 'id' => $request->id,
                 'name' => $request->name,
@@ -44,6 +45,7 @@ class UserController extends Controller
                 'password' => $request->password,
                 'phone' => $request->phone,
                 'address' => $request->address,
+                'is_admin' => $request->has('is_admin') ? (int) $request->is_admin : null,
 
             ]);
             return response()->json([
