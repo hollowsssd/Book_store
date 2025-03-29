@@ -94,7 +94,7 @@ export default function ProductPage () {
 
                                 </div>
                                 <div className="text-xl text-red-500">
-                                {book.price} đ <span className="line-through text-gray-500">145.000 đ</span> -35%
+                                {book.price} đ <span className="line-through text-gray-500">50.000 đ</span> 
                                 </div>
                             </div>
 
@@ -154,10 +154,7 @@ export default function ProductPage () {
                                             <td className="py-1">Số trang</td>
                                             <td className="py-1">216</td>
                                         </tr>
-                                        <tr>
-                                            <td className="py-1">Thông tin</td>
-                                            {/* <td className="py-1">{book.description}</td> */}
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                             </div>
