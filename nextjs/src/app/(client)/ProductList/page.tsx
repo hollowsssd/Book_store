@@ -96,13 +96,13 @@ export default function ProductPage() {
                       <figure>
                         <img
                           src={`http://127.0.0.1:8000/storage/${book?.image}`}
-                          alt="Shoes" className="max-w-full h-20" />
+                          alt="Shoes" className="w-full h-70 object-cover" />
                       </figure>
                       <div className="card-body">
                         <h2 className="card-title">{book.name}</h2>
                         <p>{book.description}</p>
                         <div className="card-actions justify-end">
-                          <Link href={`/ProductDetail/${book.isbn}`}><button className="btn btn-error">Buy Now</button></Link>
+                          <Link href={`/ProductDetail/${book.isbn}`}><button className="btn btn-error">Xem Ngay</button></Link>
                         </div>
                       </div>
                     </div>
