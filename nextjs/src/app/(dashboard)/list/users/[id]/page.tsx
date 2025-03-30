@@ -95,7 +95,7 @@ export default function UsersDetail() {
 
       setTimeout(() => {
       router.push("/list/users");
-    }, 1500);
+    }, 1000);
 
     } catch (error) {
       console.log("something went wrong", error);
@@ -113,7 +113,7 @@ export default function UsersDetail() {
 
       setTimeout(() => {
       router.push("/list/users");
-    }, 1500);
+    }, 1000);
 
     } catch (err) {
       console.error("Error deleting user:", err);

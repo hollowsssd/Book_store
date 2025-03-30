@@ -49,7 +49,7 @@ export default function CreateUser() {
             toast.success("User created!", { position: "top-right" });
             setTimeout(() => {
                 router.push("/list/users");
-            }, 1500);
+            }, 1000);
 
         } catch (error) {
             console.log("something with wrong", error);

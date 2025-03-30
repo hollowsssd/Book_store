@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ProductPage() {
 
@@ -21,7 +21,8 @@ export default function ProductPage() {
     publisher: string;
   }[]>([]);
   const searchQuery = useSearchParams();
-  const name= searchQuery.get("name");
+  const name = searchQuery.get("name");
+  const category = searchQuery.get("category");
 
   const [isLoading, setIsLoading] = useState(true); // Trạng thái tải dữ liệu
 
@@ -30,7 +31,10 @@ export default function ProductPage() {
     setIsLoading(true);
     try {
       const result = await axios.get(url, {
-        params: { name: name }, // Truyền query tìm kiếm nếu có
+        params: {
+          name: name,
+          category: category,
+        }, // Truyền query tìm kiếm nếu có
       });
       console.log(result); // Xem dữ liệu trả về
       // console.log(result.data.Result.data || []);
@@ -44,11 +48,21 @@ export default function ProductPage() {
       setIsLoading(false); // Dữ liệu đã tải xong
     }
   };
-    useEffect(() => {
+  useEffect(() => {
     fetchData();
-  }, [name]);
+  }, [name, category]);
 
+  const router = useRouter();
 
+  const onhandclick = (category: string) => {
+    router.push(`/ProductList?category=${category}`);
+    // window.location.reload();
+  }
+  // const reload = () => {
+  //   window.location.reload();
+    
+  // }
+  
 
 
 
@@ -58,23 +72,27 @@ export default function ProductPage() {
         {/* Sidebar */}
         <div className="flex items-start">
           <aside className="border border-gray-300 rounded-lg shadow-md w-60 bg-white h-auto">
-            <h3 className="bg-red-700 text-white p-3 font-semibold text-center rounded-t-lg">TẤT CẢ SẢN PHẨM</h3>
+            <button className="bg-red-700 text-white p-3 font-semibold text-center rounded-t-lg w-full" 
+            onClick={()=>{router.push(`/ProductList`)}}
+            >TẤT CẢ SẢN PHẨM</button>
             <ul className="list-none p-0">
               {[
                 "LỊCH SỬ TRUYỀN THỐNG",
                 "VĂN HỌC VIỆT NAM",
                 "VĂN HỌC NƯỚC NGOÀI",
                 "TRUYỆN TRANH",
-                "MANGO - COMIC",
+                "MANGA - COMIC",
                 "TRUYỆN CỔ TÍCH",
+                "Self help",
               ].map((category, index) => (
                 <li key={index} className="border-b last:border-none">
-                  <a
-                    href="#"
-                    className="block p-3 text-gray-700 hover:text-red-700 hover:bg-gray-100 transition duration-200"
+                  <button
+                    className="block p-3 text-gray-700 hover:text-red-700 hover:bg-gray-100 transition duration-200 w-full"
+                    onClick={() => onhandclick(category)}
                   >
                     {category}
-                  </a>
+                  </button>
+
                 </li>
               ))}
             </ul>
@@ -126,7 +144,7 @@ export default function ProductPage() {
           </div>
         </main>
       </div>
-    </div>
+    </div >
   );
 };
 

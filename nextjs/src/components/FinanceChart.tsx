@@ -12,74 +12,62 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  {
-    name: "Jan",
-    income: 4000,
-    expense: 2400,
-  },
-  {
-    name: "Feb",
-    income: 3000,
-    expense: 1398,
-  },
-  {
-    name: "Mar",
-    income: 2000,
-    expense: 9800,
-  },
-  {
-    name: "Apr",
-    income: 2780,
-    expense: 3908,
-  },
-  {
-    name: "May",
-    income: 1890,
-    expense: 4800,
-  },
-  {
-    name: "Jun",
-    income: 2390,
-    expense: 3800,
-  },
-  {
-    name: "Jul",
-    income: 3490,
-    expense: 4300,
+const data = [ 
+  { 
+    name: "Jan", 
+    users: 100,
+  }, 
+  { 
+    name: "Feb", 
+    users: 150,
+  }, 
+  { 
+    name: "Mar", 
+    users: 500,
+  }, 
+  { 
+    name: "Apr", 
+    users: 300,
+  }, 
+  { 
+    name: "May", 
+    users: 350,
+  }, 
+  { 
+    name: "Jun", 
+    users: 420,
+  }, 
+  { 
+    name: "Jul", 
+    users: 50,
   },
   {
     name: "Aug",
-    income: 3490,
-    expense: 4300,
+    users: 580,
   },
   {
     name: "Sep",
-    income: 3490,
-    expense: 4300,
+    users: 650,
   },
   {
     name: "Oct",
-    income: 3490,
-    expense: 4300,
+    users: 720,
   },
   {
     name: "Nov",
-    income: 3490,
-    expense: 4300,
+    users: 500,
   },
   {
     name: "Dec",
-    income: 3490,
-    expense: 4300,
-  },
-];
-
-const FinanceChart = () => {
+    users: 800,
+  }, 
+]; 
+ 
+const UserGrowthChart = () => { 
   return (
     <div className="bg-white rounded-xl w-full h-full p-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Finance</h1>
+        <h1 className="text-lg font-semibold">User Growth</h1>
         <Image src="/moreDark.png" alt="" width={20} height={20} />
       </div>
       <ResponsiveContainer width="100%" height="90%">
@@ -102,7 +90,7 @@ const FinanceChart = () => {
             tickLine={false}
             tickMargin={10}
           />
-          <YAxis axisLine={false} tick={{ fill: "#d1d5db" }} tickLine={false}  tickMargin={20}/>
+          <YAxis axisLine={false} tick={{ fill: "#d1d5db" }} tickLine={false} tickMargin={20}/>
           <Tooltip />
           <Legend
             align="center"
@@ -111,15 +99,14 @@ const FinanceChart = () => {
           />
           <Line
             type="monotone"
-            dataKey="income"
-            stroke="#C3EBFA"
-            strokeWidth={5}
-          />
-          <Line type="monotone" dataKey="expense" stroke="#CFCEFF" strokeWidth={5}/>
+            dataKey="users"
+            stroke="#4CAF50"
+            strokeWidth={5} 
+          /> 
         </LineChart>
       </ResponsiveContainer>
-    </div>
-  );
-};
-
-export default FinanceChart;
+    </div> 
+  ); 
+}; 
+ 
+export default UserGrowthChart;

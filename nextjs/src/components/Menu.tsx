@@ -26,8 +26,9 @@ export default function Menu() {
         }
       );
       cookies.remove("token");
-      localStorage.removeItem("image");
+      localStorage.removeItem("email");
       localStorage.removeItem("name");
+      localStorage.removeItem("role");
 
       router.push("/");
     } catch (err) {

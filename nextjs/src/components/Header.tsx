@@ -1,12 +1,22 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+
+  //cần cải thiện thêm phần này
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") { // Kiểm tra chỉ chạy trên client
+      setRole(localStorage.getItem("role") || "");
+    }
+  }, []);
   const router = useRouter();
   const cookies = new Cookies();
   // Hàm toggle mở/đóng menu
@@ -26,7 +36,7 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
 
   // Sửa kiểu của handleSearch thành string
   const handleSearch = (query: string) => {
-    window.location.href = `/ProductList?name=${query}`;
+    router.push(`/ProductList?name=${query}`);
   };
 
 
@@ -49,8 +59,11 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
       cookies.remove("token");
       localStorage.removeItem("name");
       localStorage.removeItem("email");
+      localStorage.removeItem("role");
 
-      router.push("/");
+      toast.success("Đăng xuất thành công", { position: "top-right" });
+      window.location.reload();
+
     } catch (err) {
       console.error("Logout failed:", err);
       router.push("/");
@@ -128,13 +141,37 @@ const Header = ({ handleShowModal }: { handleShowModal: () => void }) => {
       </div>
       <div className="dropdown dropdown-end ">
         <div tabIndex={0} role="button" className="btn btn-ghost">👤</div>
-        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
-          <li><a onClick={handleShowModal}>Login</a></li>
-          <li><a onClick={Logout}>Logout</a></li>
+        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          {!role && <li><a onClick={handleShowModal}>Đăng nhập / Đăng kí</a></li>}
+          {role === "1" && <li><div>
+            <img src="dashboard.png" width={19} height={19} />
+            <Link href={"/admin"}>
+              Dashboard
+            </Link>
+          </div>
+          </li>}
+          {role &&
+            <>
+              <li>
+                <div>
+                  <img src="prf.jpg" width={19} height={19} />
+                  <Link href={""}>
+                    Quản lí hồ sơ
+                  </Link>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="logout.png" width={19} height={19} />
+                  <a onClick={Logout}>Đăng xuất ( {localStorage.getItem("name")})</a>
+                </div>
+              </li>
+            </>
+          }
         </ul>
       </div>
+      <ToastContainer />
     </header>
   );
 };
-
 export default Header;

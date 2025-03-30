@@ -3,7 +3,6 @@ import Image from "next/image";
 import {
   BarChart,
   Bar,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -14,37 +13,72 @@ import {
 
 const data = [
   {
-    name: "Mon",
-    present: 60,
-    absent: 40,
+    name: "Jan",
+    booksSold: 120,
+    profit: 5000,
   },
   {
-    name: "Tue",
-    present: 70,
-    absent: 60,
+    name: "Feb",
+    booksSold: 150,
+    profit: 7000,
   },
   {
-    name: "Wed",
-    present: 90,
-    absent: 75,
+    name: "Mar",
+    booksSold: 180,
+    profit: 8500,
   },
   {
-    name: "Thu",
-    present: 90,
-    absent: 75,
+    name: "Apr",
+    booksSold: 200,
+    profit: 9500,
   },
   {
-    name: "Fri",
-    present: 65,
-    absent: 55,
+    name: "May",
+    booksSold: 170,
+    profit: 8000,
+  },
+  {
+    name: "Jun",
+    booksSold: 190,
+    profit: 9000,
+  },
+  {
+    name: "Jul",
+    booksSold: 220,
+    profit: 10500,
+  },
+  {
+    name: "Aug",
+    booksSold: 210,
+    profit: 10200,
+  },
+  {
+    name: "Sep",
+    booksSold: 230,
+    profit: 11000,
+  },
+  {
+    name: "Oct",
+    booksSold: 250,
+    profit: 12000,
+  },
+  {
+    name: "Nov",
+    booksSold: 270,
+    profit: 13000,
+  },
+  {
+    name: "Dec",
+    booksSold: 300,
+    profit: 15000,
   },
 ];
 
-const AttendanceChart = () => {
+const SalesChart = () => {
   return (
-    <div className="bg-white rounded-lg p-4 h-full">
+    <div className="bg-white rounded-lg p-4 h-full w-full">
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Attendance</h1>
+        <h1 className="text-lg font-semibold">Book Sales & Profit</h1>
         <Image src="/moreDark.png" alt="" width={20} height={20} />
       </div>
       <ResponsiveContainer width="100%" height="90%">
@@ -66,16 +100,18 @@ const AttendanceChart = () => {
             wrapperStyle={{ paddingTop: "20px", paddingBottom: "40px" }}
           />
           <Bar
-            dataKey="present"
+            dataKey="booksSold"
             fill="#FAE27C"
             legendType="circle"
             radius={[10, 10, 0, 0]}
+            name="Books Sold"
           />
           <Bar
-            dataKey="absent"
+            dataKey="profit"
             fill="#C3EBFA"
             legendType="circle"
             radius={[10, 10, 0, 0]}
+            name="Profit ($)"
           />
         </BarChart>
       </ResponsiveContainer>
@@ -83,4 +119,4 @@ const AttendanceChart = () => {
   );
 };
 
-export default AttendanceChart;
+export default SalesChart;

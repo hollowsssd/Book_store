@@ -70,7 +70,7 @@ export default function CreateBook() {
 
       setTimeout(() => {
         router.push("/list/product");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.log("something with wrong");
 

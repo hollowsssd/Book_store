@@ -7,7 +7,7 @@ export const middleware = async (request) => {
     // console.log(token);
 
     // Kiểm tra nếu không có token và người dùng không đang ở trang login
-    if (!token && pathname.startsWith("/admin") || pathname.startsWith("/list")) {
+    if (!token && (pathname.startsWith("/admin") || pathname.startsWith("/list"))) {
         return NextResponse.redirect(new URL("/", request.url));
     }
 

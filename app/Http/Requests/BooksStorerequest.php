@@ -22,12 +22,13 @@ class BooksStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'isbn'=>'nullable|string|max:255',
+            'isbn' => 'nullable|string|max:255',
             'name' => 'required|string|max:358',
             'author' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'image' => 'nullable',
+            // |image|mimes:jpeg,png,jpg,gif,svg|max:10048
             'quantity' => 'required|integer|min:0',
             'category' => 'required|string',
         ];
@@ -39,7 +40,7 @@ class BooksStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'isbn'=>'isbn is required ',
+            'isbn' => 'isbn is required ',
             'name.required' => 'Name is required!',
             'author.required' => 'Author is required!',
             'description.required' => 'Description is required!',

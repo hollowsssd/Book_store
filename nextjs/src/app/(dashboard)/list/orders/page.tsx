@@ -3,7 +3,7 @@ import CountChart from "@/components/CountChart";
 import EventCalendar from "@/components/EventCalendar";
 import FinanceChart from "@/components/FinanceChart";
 import Performance from "@/components/Performance";
-import UserCard from "@/components/UserCard";
+import UserCard from "@/components/Card";
 
 
 export default function Orders () {

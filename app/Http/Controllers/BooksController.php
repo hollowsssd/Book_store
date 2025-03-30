@@ -55,7 +55,9 @@ class BooksController extends Controller
                 'price' => $request->price,
                 'quantity' => $request->quantity,
                 'category' => $request->category,
+                'publisher' => $request->has("publisher") ? (string)$request->publisher : null,
                 'image' => $imageName,
+
             ]);
             return response()->json([
                 'message' => "book successfully create.'$request->name' -- '$imageName' "
@@ -74,14 +76,14 @@ class BooksController extends Controller
 
             // Log::info('ISBN nhận được:', ['isbn' => $isbn]);
             $book = Books::where('isbn', $isbn)->first();
-            if ($book==null) {
+            if ($book == null) {
                 return response()->json([
                     'Message' => "book is not found",
                     'isbn' => $isbn,
                     'found' => $book
                 ], 404);
             }
-            
+
             $book->isbn = $request->isbn;
             $book->name = $request->name;
             $book->author = $request->author;
@@ -90,22 +92,25 @@ class BooksController extends Controller
             $book->quantity = $request->quantity;
             $book->category = $request->category;
             $book->status = $request->status;
+            $book->publisher = $request->publisher;
 
-            if ($request->hasFile('image')) {
+                if ($request->hasFile('image')) {
 
-                $storage = Storage::disk(('public'));
+                    $storage = Storage::disk(('public'));
 
-                if (!empty($book->image) && $storage->exists($book->image)) {
-                    $storage->delete($book->image);
+                    if (!empty($book->image) && $storage->exists($book->image)) {
+                        $storage->delete($book->image);
+                    }
+                    // Image name
+                    $imageName = Str::random(32) . "." . $request->image->getClientOriginalExtension();
+                    $book->image = $imageName;
+
+                    // Image save in public folder
+                    $storage->put($imageName, file_get_contents($request->image));
                 }
-                // Image name
-                $imageName = Str::random(32) . "." . $request->image->getClientOriginalExtension();
-                $book->image = $imageName;
+            
 
-                // Image save in public folder
-                $storage->put($imageName, file_get_contents($request->image));
-            }
-
+                
             $book->save();
 
             return response()->json([
@@ -113,11 +118,11 @@ class BooksController extends Controller
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => "something went really wrong".$e->getMessage()
+                'message' => "something went really wrong" . $e->getMessage()
             ], 500);
         }
     }
-    
+
     public function destroy($isbn)
     {
         try {
@@ -145,7 +150,7 @@ class BooksController extends Controller
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => "something went really wrong".$e->getMessage()
+                'message' => "something went really wrong" . $e->getMessage()
             ], 500);
         }
     }

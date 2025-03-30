@@ -4,7 +4,6 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import { on } from "events";
 
 
 const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
@@ -55,12 +54,13 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
       if (user) {
         localStorage.setItem('name', user.name);
         localStorage.setItem('email', user.email);
+        localStorage.setItem('role', user.is_admin);
       }
 
       toast.success("Đăng nhập thành công", { position: "top-right" });
-      // setTimeout(()=>{
-      //   e.preventDefault();
-      // }, 1500);
+      setTimeout(() => {
+        window.location.reload();;
+      }, 1000);
 
 
     } catch (err) {
@@ -99,10 +99,13 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-lg flex justify-center items-center"
-      onClick={() => handleShowModal?.()}
+      // onClick={(e) => {
+      //   if (e.target === e.currentTarget) {
+      //     handleShowModal?.();
+      //   }
+      // }}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
         className="relative bg-white rounded-lg shadow px-8 py-10 w-full max-w-lg"
       >
         {/* Nút đóng popup */}
@@ -196,7 +199,7 @@ const LoginModal = ({ handleShowModal }: { handleShowModal?: () => void }) => {
         </p>
       </div>
       <ToastContainer />
-    </div>
+    </div >
   );
 };
 

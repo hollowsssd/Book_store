@@ -75,7 +75,7 @@ export default function Checkout() {
     toast.success("Đặt hàng thành công!", { position: "top-right" });
     setTimeout(() => {
       window.location.href = "/";
-    }, 2000);
+    }, 1000);
   };
 
   return (
